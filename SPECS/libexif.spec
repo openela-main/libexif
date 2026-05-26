@@ -1,7 +1,7 @@
 Summary:	Library for extracting extra information from image files
 Name:		libexif
 Version:	0.6.22
-Release:	5%{?dist}
+Release:	6%{?dist}
 Group:		System Environment/Libraries
 License:	LGPLv2+
 URL:		https://libexif.github.io/
@@ -15,6 +15,13 @@ Patch0:         CVE-2020-0181-CVE-2020-0198.patch
 
 # https://github.com/libexif/libexif/commit/9266d14b5ca4e29b970fa03272318e5f99386e06
 Patch1:         CVE-2020-0452.patch
+
+# CVE-2026-40386
+# https://github.com/libexif/libexif/commit/dc6eac6e9655d14d0779d99e82d0f5f442d2f34b
+# CVE-2026-40385
+# https://github.com/libexif/libexif/commit/93003b93e50b3d259bd2227d8775b73a53c35d58
+Patch2:         fixed-2-unsigned-integer-underflows.patch
+Patch3:         avoid-overflow-on-32bit-system-when-reading-nikon-makernotes.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -85,9 +92,14 @@ make check
 %doc libexif-api.html
 
 %changelog
+* Thu May 07 2026 Jan Grulich <jgrulich@redhat.com> - 0.6.22-6
+- Fix integer underflow in MakerNote decoding (CVE-2026-40386)
+- Fix integer overflow in Nikon MakerNote handling (CVE-2026-40385)
+  Resolves: RHEL-170243, RHEL-170220
+
 * Mon Dec 07 2020 Richard Hughes <rhughes@redhat.com> - 0.6.22-5
 - Fix CVE-2020-0452
-- Resolves: #1902593
+- Resolves: #1902594
 
 * Thu Jun 25 2020 Michael Catanzaro <mcatanzaro@redhat.com> - 0.6.22-4
 - Add patch for CVE-2020-0181/CVE-2020-0198
