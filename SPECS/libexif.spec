@@ -1,10 +1,14 @@
 Summary:	Library for extracting extra information from image files
 Name:		libexif
 Version:	0.6.24
-Release:	9%{?dist}
+Release:	9%{?dist}.1
 License:	LGPL-2.1-or-later
 URL:		https://libexif.github.io/
 Source0:	https://github.com/libexif/libexif/releases/download/v%{version}/libexif-%{version}.tar.bz2
+
+# CVE-2026-40386
+# https://github.com/libexif/libexif/commit/dc6eac6e9655d14d0779d99e82d0f5f442d2f34b
+Patch:          fixed-2-unsigned-integer-underflows.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -74,6 +78,10 @@ rm -rf %{buildroot}%{_datadir}/doc/libexif
 
 
 %changelog
+* Thu May 07 2026 Jan Grulich <jgrulich@redhat.com> - 0.6.24-9.1
+- Fix integer underflow in MakerNote decoding (CVE-2026-40386)
+  Resolves: RHEL-170240
+
 * Tue Oct 29 2024 Troy Dawson <tdawson@redhat.com> - 0.6.24-9
 - Bump release for October 2024 mass rebuild:
   Resolves: RHEL-64018
