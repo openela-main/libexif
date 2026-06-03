@@ -1,7 +1,7 @@
 Summary:	Library for extracting extra information from image files
 Name:		libexif
 Version:	0.6.22
-Release:	6%{?dist}
+Release:	6%{?dist}.1
 License:	LGPLv2+
 URL:		https://libexif.github.io/
 %global tarball_version %(echo %{version} | sed -e 's|\\.|_|g')
@@ -11,6 +11,13 @@ Source0:	https://github.com/libexif/libexif/archive/libexif-%{tarball_version}-r
 Patch0:         CVE-2020-0181-CVE-2020-0198.patch
 # https://github.com/libexif/libexif/commit/9266d14b5ca4e29b970fa03272318e5f99386e06
 Patch1:         CVE-2020-0452.patch
+
+# CVE-2026-40386
+# https://github.com/libexif/libexif/commit/dc6eac6e9655d14d0779d99e82d0f5f442d2f34b
+# CVE-2026-40385
+# https://github.com/libexif/libexif/commit/93003b93e50b3d259bd2227d8775b73a53c35d58
+Patch:          fixed-2-unsigned-integer-underflows.patch
+Patch:          avoid-overflow-on-32bit-system-when-reading-nikon-makernotes.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -83,6 +90,11 @@ make check
 
 
 %changelog
+* Thu May 07 2026 Jan Grulich <jgrulich@redhat.com> - 0.6.22-6.1
+- Fix integer underflow in MakerNote decoding (CVE-2026-40386)
+- Fix integer overflow in Nikon MakerNote handling (CVE-2026-40385)
+  Resolves: RHEL-170253, RHEL-170234
+
 * Mon Aug 09 2021 Mohan Boddu <mboddu@redhat.com> - 0.6.22-6
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
