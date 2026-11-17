@@ -1,7 +1,7 @@
 Summary:	Library for extracting extra information from image files
 Name:		libexif
 Version:	0.6.22
-Release:	6%{?dist}.1
+Release:	7%{?dist}
 License:	LGPLv2+
 URL:		https://libexif.github.io/
 %global tarball_version %(echo %{version} | sed -e 's|\\.|_|g')
@@ -90,10 +90,10 @@ make check
 
 
 %changelog
-* Thu May 07 2026 Jan Grulich <jgrulich@redhat.com> - 0.6.22-6.1
+* Thu May 07 2026 Jan Grulich <jgrulich@redhat.com> - 0.6.22-7
 - Fix integer underflow in MakerNote decoding (CVE-2026-40386)
 - Fix integer overflow in Nikon MakerNote handling (CVE-2026-40385)
-  Resolves: RHEL-170253, RHEL-170234
+  Resolves: RHEL-170254, RHEL-170235
 
 * Mon Aug 09 2021 Mohan Boddu <mboddu@redhat.com> - 0.6.22-6
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
